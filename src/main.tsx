@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {
+  Navigate,
   Route,
   RouterProvider,
   createBrowserRouter,
@@ -42,6 +43,10 @@ const router = createBrowserRouter(
 
           return null;
         }}
+      />
+      <Route
+        path='*'
+        element={<Navigate to='/' />}
       />
     </Route>
   )
