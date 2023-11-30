@@ -21,15 +21,18 @@ export const useUser = () => {
       });
     }
 
-    // Works only on pages on different tabs
+    // Subscribes to the user-made changes to the localstorage 
     const storageChangeListener = (event: StorageEvent) => {
       const { key, newValue } = event;
 
-      if (key === USER_LOCALSTORAGE_GETTER_KEY && newValue) {
-        if (emailRegex.test(newValue)) {
-          setUser({
-            email: newValue
-          });
+      if (key === USER_LOCALSTORAGE_GETTER_KEY) {
+        if (newValue) {
+          if (emailRegex.test(newValue)) {
+            setUser({
+              email: newValue
+            });
+            navigate('/');
+          }
         } else {
           navigate(`/login?${LOGIN_ERROR_QP_KEY}=${LoginFormErrors.NOT_LOGGED}`);
         }
