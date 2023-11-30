@@ -47,14 +47,14 @@ export const Login = () => {
   };
 
   return (
-    <div className="bg-gradient-bg flex items-center justify-center h-screen" >
-      <div className="h-fit rounded-lg-xl grid gap-[30px] lg:bg-white lg:shadow-card lg:px-20 lg:py-[83px] lg:max-w-lg" >
-        <h1 className="font-roboto font-bold text-3xl leading-normal text-white text-center lg:text-black" >
+    <div className="bg-gradient-bg flex items-center justify-center min-h-screen" >
+      <div className="h-fit rounded-lg-xl grid gap-[30px] md:bg-white md:shadow-card md:px-20 md:py-[83px] md:max-w-lg" >
+        <h1 className="font-roboto font-bold text-3xl leading-normal text-white text-center md:text-black" >
           Login to Your Account
         </h1>
         {loginFormState.errorMsg && (
           <span>
-            <p className="font-roboto text-white text-xl font-medium leading-6 lg:text-red-500" >
+            <p className="font-roboto text-white text-xl font-medium leading-6 md:text-red-500" >
               Oops, there was an issue signing in:
               <br />
               <b>{loginFormState.errorMsg}</b>
@@ -69,7 +69,7 @@ export const Login = () => {
             onBlur={onInputBlur}
             value={loginFormState.email}
           />
-          <button className="font-roboto text-xl leading-6 font-medium mt-4 rounded-lg-xl bg-app-main py-3.5 text-center w-full text-white lg:mb-2" >
+          <button className="font-roboto text-xl leading-6 font-medium mt-4 rounded-lg-xl bg-app-main py-3.5 text-center w-full text-white md:mb-2" >
             Sign in
           </button>
         </div>

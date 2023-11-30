@@ -10,13 +10,13 @@ export default {
         'gradient-bg': 'linear-gradient(116.82deg, #FF71A2 0%, #FFC682 100%),linear-gradient(0deg, #FFFFFF, #FFFFFF)'
       },
       fontFamily: {
-        'roboto': ['Roboto']
+        'roboto': ['Roboto', 'sans-serif']
       },
       borderRadius: {
         'lg-xl': '10px'
       },
       colors: {
-        'input-text': 'rgba(0, 0, 0, 0.60)',
+        'base-text': 'rgba(0, 0, 0, 0.60)',
         'input-bg': '#F8F5F5',
         'app-main': '#FF5B90'
       },
