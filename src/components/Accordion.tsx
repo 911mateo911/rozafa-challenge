@@ -77,7 +77,7 @@ export const Accordion = ({ title, children, className }: AccordionProps) => {
   return (
     <div className={className} >
       <div
-        className='font-roboto font-bold text-black text-base leading-5 flex justify-between items-center cursor-pointer pb-4 lg:pb-2.5 lg:text-xl'
+        className='font-roboto font-bold text-black text-base leading-5 flex justify-between items-center cursor-pointer pb-4 md:pb-2.5 md:text-xl'
         onClick={onToggleAccordion}
       >
         {title}

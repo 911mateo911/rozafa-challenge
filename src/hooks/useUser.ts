@@ -22,6 +22,7 @@ export const useUser = () => {
     }
 
     // Subscribes to the user-made changes to the localstorage 
+    // Usecase 2: if the users logouts on another tab, we get the event on all the tabs and we logout everywhere
     const storageChangeListener = (event: StorageEvent) => {
       const { key, newValue } = event;
 

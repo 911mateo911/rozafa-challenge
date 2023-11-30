@@ -46,14 +46,14 @@ export const Profile = () => {
           </div>
         </section>
         <hr className="bg-grey-5 m-[30px] md:hidden" />
-        <Accordion className='lg:mt-20' title="About Me:" >
+        <Accordion className='md:mt-20' title="About Me:" >
           <p className="text-black font-roboto text-base font-normal" >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus. Urna neque viverra justo nec. Vulputate ut pharetra sit amet aliquam id. Duis ultricies lacus sed turpis. Non enim praesent elementum facilisis leo vel fringilla est ullamcorper. Iaculis urna id volutpat lacus laoreet. Vitae semper quis lectus nulla at volutpat diam. Tincidunt augue interdum velit euismod in pellentesque. Elementum pulvinar etiam non quam lacus suspendisse. Eget magna fermentum iaculis eu.
           </p>
         </Accordion>
         <Accordion
           title="Employment history"
-          className="mt-4 lg:mt-5"
+          className="mt-4 md:mt-5"
         >
           <JobSection
             company="Sisal Albania"
