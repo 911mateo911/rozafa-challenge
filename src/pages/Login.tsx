@@ -26,6 +26,7 @@ export const Login = () => {
     }))
   }, []);
 
+  // TODO: remove this one
   const onInputBlur: FocusEventHandler<HTMLInputElement> = ({ target }) => {
     const { value } = target;
 

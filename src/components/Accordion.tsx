@@ -1,9 +1,11 @@
 import classNames from 'classnames';
-import { CSSProperties, ReactNode, useRef, useState } from 'react';
+import { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
+import ArrowIcon from '../assets/arrow.svg?react';
 
 interface AccordionProps {
   title: string;
   children: ReactNode;
+  className?: string;
 }
 
 type AccordionWrapperStyles = Pick<CSSProperties, 'height'>;
@@ -20,7 +22,7 @@ const initialAccordionStyles: AccordionStyles = {
   childClasses: 'invisible z-[-1]'
 };
 
-export const Accordion = ({ title, children }: AccordionProps) => {
+export const Accordion = ({ title, children, className }: AccordionProps) => {
   const childWrapperRef = useRef<HTMLDivElement>(null);
   const [accordionStyles, setAccordionStyles] = useState<AccordionStyles>(initialAccordionStyles);
 
@@ -43,13 +45,45 @@ export const Accordion = ({ title, children }: AccordionProps) => {
     });
   };
 
+  useEffect(() => {
+    // TODO: throttle this!!!!
+    // USED THIS TO RECALCULATE THE CHILD
+    const resizeListener = () => {
+      if (childWrapperRef.current) {
+        setAccordionStyles(previousStyles => {
+          const isAccordionOpen = !!previousStyles.wrapperStyles.height;
+
+          if (isAccordionOpen) {
+            return {
+              ...previousStyles,
+              wrapperStyles: {
+                height: childWrapperRef.current?.offsetHeight
+              }
+            }
+          } else {
+            return previousStyles;
+          }
+        })
+      }
+    }
+
+    window.addEventListener('resize', resizeListener);
+
+    return () => {
+      window.removeEventListener('resize', resizeListener);
+    }
+  }, []);
+
   return (
-    <div>
+    <div className={className} >
       <div
-        className='p-3 rounded-md cursor-pointer bg-grey-10 font-semibold tracking-wide flex justify-between items-center'
+        className='font-roboto font-bold text-black text-base leading-5 flex justify-between items-center cursor-pointer pb-4 lg:pb-2.5 lg:text-xl'
         onClick={onToggleAccordion}
       >
         {title}
+        <ArrowIcon
+          className={classNames('transition-all w-3', accordionStyles.wrapperStyles.height ? 'rotate-0' : '-rotate-180')}
+        />
       </div>
       <div
         style={accordionStyles.wrapperStyles}

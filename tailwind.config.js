@@ -10,7 +10,8 @@ export default {
         'gradient-bg': 'linear-gradient(116.82deg, #FF71A2 0%, #FFC682 100%),linear-gradient(0deg, #FFFFFF, #FFFFFF)'
       },
       fontFamily: {
-        'roboto': ['Roboto', 'sans-serif']
+        'roboto': ['Roboto', 'sans-serif'],
+        'font-awesome-5': ['"Font Awesome 5 Pro"', 'sans-serif']
       },
       borderRadius: {
         'lg-xl': '10px'
