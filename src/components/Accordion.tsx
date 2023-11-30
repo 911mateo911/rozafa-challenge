@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 import ArrowIcon from '../assets/arrow.svg?react';
+import { throttle } from '../helpers/throttle';
 
 interface AccordionProps {
   title: string;
@@ -46,9 +47,8 @@ export const Accordion = ({ title, children, className }: AccordionProps) => {
   };
 
   useEffect(() => {
-    // TODO: throttle this!!!!
-    // USED THIS TO RECALCULATE THE CHILD
-    const resizeListener = () => {
+    // USED THIS TO RECALCULATE THE CHILD Height if changed due to screen resizing
+    const resizeListener = throttle(() => {
       if (childWrapperRef.current) {
         setAccordionStyles(previousStyles => {
           const isAccordionOpen = !!previousStyles.wrapperStyles.height;
@@ -65,7 +65,7 @@ export const Accordion = ({ title, children, className }: AccordionProps) => {
           }
         })
       }
-    }
+    }, 500)
 
     window.addEventListener('resize', resizeListener);
 

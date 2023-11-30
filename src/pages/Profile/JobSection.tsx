@@ -10,7 +10,7 @@ interface JobSectionProps {
 export const JobSection = ({ position, company, dateRange, className }: JobSectionProps) => {
   return (
     <div className={classNames(
-      "grid grid-cols-2 bg-[#E5E5E5] p-2 [&>p]:text-black [&>p]:text-xs [&>p]:font-light [&>p]:leading-4 [&>p]:font-font-awesome-5",
+      "grid grid-cols-2 bg-grey-5 p-2 [&>p]:text-black [&>p]:text-xs [&>p]:font-light [&>p]:leading-4 [&>p]:font-font-awesome-5",
       className
     )} >
       <p>
