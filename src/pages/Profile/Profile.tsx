@@ -1,24 +1,35 @@
-import { Accordion } from "../../components/Accordion"
-import { useUser } from "../../hooks/useUser"
-import { JobSection } from "./JobSection"
-import { SectionDetail } from "./SectionDetail"
+import { Accordion } from "../../components/Accordion";
+import { useAccordionGroup } from "../../hooks/useAccordionGroup";
+import { useUser } from "../../hooks/useUser";
+import { JobSection } from "./JobSection";
+import { SectionDetail } from "./SectionDetail";
+
+enum AccordionSectionNames {
+  PersonalDesc = 'personal_desc',
+  Employment = 'employment'
+}
 
 export const Profile = () => {
-  const { user, logoutUser } = useUser();
+  const { logoutUser } = useUser();
   const currentMonth = new Date().toLocaleString('default', { month: 'long' }).slice(0, 3);
+
+  const {
+    nameOfOpenAccordion,
+    onAccordionToggled
+  } = useAccordionGroup(AccordionSectionNames.PersonalDesc);
 
   return (
     <div className="min-h-screen border-t-[20px] border-t-app-main" >
       <nav className="[&>*]:font-roboto mt-[42px] px-base flex items-center justify-between flex-col md:flex-row" >
         <h1 className="text-black text-center text-[26px] font-bold leading-7 mb-4 md:mb-0" >
-          Welcome Back {user?.email}
+          Welcome Back Mateo
         </h1>
         <button onClick={logoutUser} className="text-base-text text-base font-bold leading-5 md:mr-[30px]" >
           Logout
         </button>
       </nav>
 
-      <main className="px-base mt-[60px]" >
+      <main className="px-base mt-[60px] max-w-[1000px] mx-auto" >
         <section className="max-w-[646px] mx-auto grid grid-cols-1 gap-base rounded-lg-xl md:bg-[#BEBEC01A] md:py-[26px] md:px-9 md:grid-cols-2 md:gap-3" >
           <div className="grid gap-base md:gap-3" >
             <SectionDetail
@@ -27,9 +38,9 @@ export const Profile = () => {
             />
             <SectionDetail
               label="Email:"
-              value={user?.email}
+              value='malajmateo@gmail.com'
               asLink
-              to={`mailto:${user?.email}`}
+              to='mailto:malajmateo@gmail.com'
             />
           </div>
           <div className="grid gap-base md:gap-3" >
@@ -46,14 +57,23 @@ export const Profile = () => {
           </div>
         </section>
         <hr className="bg-grey-5 m-[30px] md:hidden" />
-        <Accordion className='md:mt-20' title="About Me:" >
+        <Accordion
+          name={AccordionSectionNames.PersonalDesc}
+          className='md:mt-20'
+          title="About Me:"
+          open={nameOfOpenAccordion === AccordionSectionNames.PersonalDesc}
+          onToggleAccordionState={onAccordionToggled}
+        >
           <p className="text-black font-roboto text-base font-normal" >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus. Urna neque viverra justo nec. Vulputate ut pharetra sit amet aliquam id. Duis ultricies lacus sed turpis. Non enim praesent elementum facilisis leo vel fringilla est ullamcorper. Iaculis urna id volutpat lacus laoreet. Vitae semper quis lectus nulla at volutpat diam. Tincidunt augue interdum velit euismod in pellentesque. Elementum pulvinar etiam non quam lacus suspendisse. Eget magna fermentum iaculis eu.
+            I have always had an interest on software and how it works. After I finished my studies, I decided the software field suited me more and i learned some android development first, then to move to javascript, to which i decided to base my career as an app developer. Since I started learning JS, I've been very dedicated and have managed to learn quite a lot.
           </p>
         </Accordion>
         <Accordion
+          name={AccordionSectionNames.Employment}
           title="Employment history"
           className="mt-4 md:mt-5"
+          open={nameOfOpenAccordion === AccordionSectionNames.Employment}
+          onToggleAccordionState={onAccordionToggled}
         >
           <JobSection
             company="Sisal Albania"

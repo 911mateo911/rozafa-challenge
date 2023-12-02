@@ -1,12 +1,15 @@
 import classNames from 'classnames';
-import { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
+import { CSSProperties, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import ArrowIcon from '../assets/arrow.svg?react';
 import { throttle } from '../helpers/throttle';
 
 interface AccordionProps {
+  name: string;
   title: string;
   children: ReactNode;
   className?: string;
+  open: boolean;
+  onToggleAccordionState: (name: string, isOpen: boolean) => void;
 }
 
 type AccordionWrapperStyles = Pick<CSSProperties, 'height'>;
@@ -23,9 +26,31 @@ const initialAccordionStyles: AccordionStyles = {
   childClasses: 'invisible z-[-1]'
 };
 
-export const Accordion = ({ title, children, className }: AccordionProps) => {
-  const childWrapperRef = useRef<HTMLDivElement>(null);
+const openAccordionChildClass: AccordionStyles['childClasses'] = 'visible z-auto';
+
+export const Accordion = ({
+  title,
+  children,
+  open,
+  onToggleAccordionState,
+  className,
+  name
+}: AccordionProps) => {
+  const childWrapperRef = useRef<HTMLDivElement | null>(null);
   const [accordionStyles, setAccordionStyles] = useState<AccordionStyles>(initialAccordionStyles);
+
+  const childWrapperRefSetter = useCallback((divElement: HTMLDivElement) => {
+    setAccordionStyles(open ?
+      {
+        childClasses: openAccordionChildClass,
+        wrapperStyles: {
+          height: divElement?.offsetHeight
+        }
+      } : initialAccordionStyles
+    );
+
+    childWrapperRef.current = divElement
+  }, [open]);
 
   const onToggleAccordion = () => {
     if (!childWrapperRef.current) {
@@ -35,13 +60,15 @@ export const Accordion = ({ title, children, className }: AccordionProps) => {
     requestAnimationFrame(() => {
       if (isAccordionOpen) {
         setAccordionStyles(initialAccordionStyles);
+        onToggleAccordionState(name, false);
       } else {
         setAccordionStyles({
           wrapperStyles: {
             height: childWrapperRef.current?.offsetHeight
           },
-          childClasses: 'visible z-auto'
+          childClasses: openAccordionChildClass
         });
+        onToggleAccordionState(name, true);
       }
     });
   };
@@ -90,7 +117,7 @@ export const Accordion = ({ title, children, className }: AccordionProps) => {
         className='transition-all relative w-full overflow-y-hidden duration-300'
       >
         <div
-          ref={childWrapperRef}
+          ref={childWrapperRefSetter}
           className={classNames(
             accordionStyles.childClasses,
             'absolute w-full overflow-hidden bottom-0 left-0'
